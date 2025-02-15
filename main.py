@@ -9,12 +9,12 @@ import threading
 import json
 from os import environ
 
-bot_token = environ.get("TOKEN", "6662320983:AAFt8iZukwYD7oH5cvRIwk0bWE4aZCcWayE") 
-api_hash = environ.get("HASH", "402721dee326fb686f383e75ccdda8ef") 
-api_id = int(environ.get("ID", "23615650"))
+bot_token = environ.get("TOKEN", "") 
+api_hash = environ.get("HASH", "") 
+api_id = int(environ.get("ID", ""))
 bot = Client("mybot", api_id=api_id, api_hash=api_hash, bot_token=bot_token)
 
-ss = environ.get("STRING", "AQFoWKIALxvxEiWgs9c_85oXpdH37W4Ku2qcPEzTjn2cGz1E0JssB9lBYJOTXSKqu9zCVPyFaLPwil90uavmeEjQuh99AXoiFqSzDOOdt7adypsC2RlTyh_XSPp_x59X6Pm1IV_xiuhLa2gdlJLzblDwQSWXa8nysw2RTvhJ0MhMSxEzEpEywsRk_v2EIteT9SNS1H5sEa7hqvo9iRdUrrzitTIydgn8Pke11XfKxF8bx7KxpbrNrvMGwRh8W-IYoCihJv0g9n9723znqQqqr336jkYMh0Q_VeoUGAjlEqjZalRB9Jc8tSWINys7G1JjpnIr08_wPf8gVuV3RJExMjLDpBBxdQAAAAFhiTrHAA")
+ss = environ.get("STRING", "")
 if ss is not None:
 	acc = Client("myacc" ,api_id=api_id, api_hash=api_hash, session_string=ss)
 	acc.start()
@@ -31,7 +31,7 @@ def downstatus(statusfile,message):
 		with open(statusfile,"r") as downread:
 			txt = downread.read()
 		try:
-			bot.edit_message_text(message.chat.id, message.id, f"**𝙳𝚘𝚠𝚗𝚕𝚘𝚊𝚍𝚎𝚍** ♀️ : **{txt}**")
+			bot.edit_message_text(message.chat.id, message.id, f"**Downloaded**  : **{txt}**")
 			time.sleep(10)
 		except:
 			time.sleep(5)
@@ -48,7 +48,7 @@ def upstatus(statusfile,message):
 		with open(statusfile,"r") as upread:
 			txt = upread.read()
 		try:
-			bot.edit_message_text(message.chat.id, message.id, f"**𝚄𝚙𝚕𝚘𝚊𝚍𝚎𝚍** ♨️ : **{txt}**")
+			bot.edit_message_text(message.chat.id, message.id, f"**Uploaded**  : **{txt}**")
 			time.sleep(10)
 		except:
 			time.sleep(5)
@@ -152,7 +152,7 @@ def handle_private(message: pyrogram.types.messages_and_media.message.Message, c
 			bot.send_message(message.chat.id, msg.text, entities=msg.entities, reply_to_message_id=message.id)
 			return
 
-		smsg = bot.send_message(message.chat.id, '**Loading 🔄**', reply_to_message_id=message.id)
+		smsg = bot.send_message(message.chat.id, '**Downloading**', reply_to_message_id=message.id)
 		dosta = threading.Thread(target=lambda:downstatus(f'{message.id}downstatus.txt',smsg),daemon=True)
 		dosta.start()
 		file = acc.download_media(msg, progress=progress, progress_args=[message,"down"])
